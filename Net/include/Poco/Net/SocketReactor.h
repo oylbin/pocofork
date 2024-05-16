@@ -256,7 +256,7 @@ protected:
 	void dispatch(SocketNotification* pNotification);
 		/// Dispatches the given notification to all observers.
 
-private:
+
 	typedef Poco::AutoPtr<SocketNotifier>        NotifierPtr;
 	typedef Poco::AutoPtr<SocketNotification>    NotificationPtr;
 	typedef std::map<poco_socket_t, NotifierPtr> EventHandlerMap;
