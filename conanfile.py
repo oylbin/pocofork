@@ -13,7 +13,7 @@ required_conan_version = ">=1.54.0"
 
 class PocoConan(ConanFile):
     name = "poco"
-    version = "1.13.3-c11p1"
+    version = "1.13.3-c14p1"
     description = (
         "Modern, powerful open source C++ class libraries for building "
         "network- and internet-based applications that run on desktop, server, "
@@ -88,7 +88,7 @@ class PocoConan(ConanFile):
 
     @property
     def _min_cppstd(self):
-        return "11"
+        return "14"
 
     @property
     def _compilers_minimum_version(self):
