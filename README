@@ -1,3 +1,15 @@
+# build steps
+
+1. install conan
+2. build & test usage: `conan create .`
+    1. same as 
+        1. `conan install .`
+        2. `conan build .`
+        3. `conan test test_pacakge poco/1.13.3-p1`
+3. check cache: `conan list poco/1.13.3-p1:*`
+4. check test_package/conanfile.py & test_pacakage/CMakeLists.txt for usage example.
+
+# Original README
 This is the README file for the POCO C++ Libraries.
 
 In this document you will find a brief description of the directory layout,
