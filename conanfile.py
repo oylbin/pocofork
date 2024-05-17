@@ -13,7 +13,7 @@ required_conan_version = ">=1.54.0"
 
 class PocoConan(ConanFile):
     name = "poco"
-    version = "1.13.3-p1"
+    version = "1.13.3-c11p1"
     description = (
         "Modern, powerful open source C++ class libraries for building "
         "network- and internet-based applications that run on desktop, server, "
@@ -88,17 +88,7 @@ class PocoConan(ConanFile):
 
     @property
     def _min_cppstd(self):
-        # Since 1.10.0, poco officially requires C++14
-        # https://github.com/pocoproject/poco/releases/tag/poco-1.10.0-release
-        # But poco uses C++11 features only until 1.12.5
-        # https://github.com/pocoproject/poco/commit/886b76f4faa2007cc0c09dad81f8dcdee6fcb4ac
-        if Version(self.version) < "1.12.5":
-            return "11"
-        # Since 1.13.0, poco requires C++17
-        # https://github.com/pocoproject/poco/releases/tag/poco-1.13.0-release
-        if Version(self.version) < "1.13.0":
-            return "14"
-        return "14"
+        return "11"
 
     @property
     def _compilers_minimum_version(self):
