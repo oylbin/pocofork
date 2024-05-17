@@ -1,8 +1,10 @@
 # build steps
 
 1. install conan
-2. build & test usage: `conan create .`
-    1. same as 
+2. build & test usage
+    1. for debug: `conan create . -s build_type=Debug`
+    2. for release: `conan create . -s build_type=Release`
+    1. I think it is the same as 
         1. `conan install .`
         2. `conan build .`
         3. `conan test test_pacakge poco/1.13.3-p1`
