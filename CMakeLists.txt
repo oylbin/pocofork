@@ -42,17 +42,19 @@ endif()
 # Setup C/C++ compiler options
 #################################################################################
 
-# C++17 compiler flags
-include(CXX1x)
-check_for_cxx17_compiler(CXX17_COMPILER)
-
-# If a C++17 compiler is available, then set the appropriate flags
-if(CXX17_COMPILER)
-	set(CMAKE_CXX_STANDARD 17)
-	set(CMAKE_CXX_STANDARD_REQUIRED ON)
-else()
-	message(FATAL_ERROR "Compiler does not support C++17.")
-endif()
+## C++17 compiler flags
+#include(CXX1x)
+#check_for_cxx17_compiler(CXX17_COMPILER)
+#
+## If a C++17 compiler is available, then set the appropriate flags
+#if(CXX17_COMPILER)
+#	set(CMAKE_CXX_STANDARD 17)
+#	set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#else()
+#	message(FATAL_ERROR "Compiler does not support C++17.")
+#endif()
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "RelWithDebInfo")

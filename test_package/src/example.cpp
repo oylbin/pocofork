@@ -6,6 +6,8 @@
 #include "Poco/PatternFormatter.h"
 #include "Poco/FormattingChannel.h"
 
+#include "examplelib.h"
+
 void init_poco_logger()
 {
     Poco::AutoPtr<Poco::ConsoleChannel> pCons(new Poco::ConsoleChannel);
@@ -22,4 +24,6 @@ int main()
     init_poco_logger();
     Poco::Logger &logger = Poco::Logger::get("raven");
     logger.debug("Hello, Poco!");
+    auto randomString = generateRandomString(10);
+    logger.debug("Random string: " + randomString);
 }
