@@ -24,8 +24,9 @@ test-on-windows:
   script:
     - echo "Start Test On Windows"
     - pwd
-    - curl -I https://git.youle.game
-    - unzip --version
+    - curl -o conan.zip https://git.youle.game/opensource/thirdparty/poco/uploads/f109f4e0b49606c811feee5932e597a4/conan-2.3.0-windows-x86_64.zip
+    - unzip conan.zip
+    - conan.exe --version
 
 
 # test-on-linux:
