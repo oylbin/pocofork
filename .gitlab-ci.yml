@@ -7,6 +7,9 @@ workflow:
 stages:
   - test
 
+variables:
+  CONAN_USER_HOME: "${CI_PROJECT_DIR}/.conan2"
+
 test-on-macos:
   stage: test
   tags:
@@ -15,7 +18,11 @@ test-on-macos:
     - echo "Start Test On MacOS"
     - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-x86_64.tgz -O /tmp/conan-2.3.0-macos-x86_64.tgz
     - cd $HOME && tar zxf /tmp/conan-2.3.0-macos-x86_64.tgz
-    - $HOME/bin/conan --version
+    - $HOME/bin/conan profile detect -e
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .conan2/
 
 test-on-windows:
   stage: test
@@ -26,8 +33,11 @@ test-on-windows:
     - pwd
     - curl -o conan.zip https://git.youle.game/opensource/thirdparty/poco/uploads/f109f4e0b49606c811feee5932e597a4/conan-2.3.0-windows-x86_64.zip
     - unzip conan.zip
-    - ./conan.exe --version
-
+    - ./conan.exe profile detect -e
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .conan2/
 
 test-on-linux:
   stage: test
@@ -36,4 +46,8 @@ test-on-linux:
     - docker
   script:
     - echo "Start Test On Linux"
-    - /root/bin/conan --version
+    - /root/bin/conan  profile detect -e
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .conan2/
