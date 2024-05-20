@@ -24,8 +24,8 @@ test-on-windows:
   script:
     - echo "Start Test On Windows"
     - curl -o conan-2.3.0-windows-x86_64.zip -sL https://nexus.youle.game/repository/raw/conan/conan-2.3.0-windows-x86_64.zip
-    - powershell -Command 'Expand-Archive .\conan-2.3.0-windows-x86_64.zip -DestinationPath .'
-    - powershell -Command '.\conan.exe --version'
+    - pwd
+    - unzip --version
 
 # test-on-linux:
 #   stage: test
