@@ -18,6 +18,7 @@ test-on-macos:
     - echo "Start Test On MacOS"
     - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-x86_64.tgz -O /tmp/conan-2.3.0-macos-x86_64.tgz
     - cd $HOME && tar zxf /tmp/conan-2.3.0-macos-x86_64.tgz
+    - cd ${CI_PROJECT_DIR}
     - $HOME/bin/conan profile detect -e
     - $HOME/bin/conan remote add --insecure -f youle http://192.168.212.47:9300
     - $HOME/bin/conan create . -s build_type=Debug
