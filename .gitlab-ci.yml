@@ -24,8 +24,8 @@ test-on-windows:
   script:
     - echo "Start Test On Windows"
     - pwd
-    - unzip --version
     - curl https://nexus.youle.game/repository/raw/zeus-test-report/version.txt
+    - unzip --version
 
 
 # test-on-linux:
