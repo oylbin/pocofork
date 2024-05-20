@@ -13,8 +13,8 @@ test-on-macos:
     - macos
   script:
     - echo "Start Test On MacOS"
-    - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-linux-x86_64.tgz -O /tmp/conan-2.3.0-linux-x86_64.tgz
-    - cd $HOME && tar zxf /tmp/conan-2.3.0-linux-x86_64.tgz
+    - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-x86_64.tgz -O /tmp/conan-2.3.0-macos-x86_64.tgz
+    - cd $HOME && tar zxf /tmp/conan-2.3.0-macos-x86_64.tgz
     - $HOME/bin/conan --version
 
 # test-on-windows:
