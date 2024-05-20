@@ -22,7 +22,7 @@ test-on-macos:
     - export PATH=$HOME/bin:$PATH
     - conan profile detect -e
     - conan remote add --insecure -f youle http://192.168.212.47:9300
-    - sed -i '' -e '/s/gnu98/gnu14/g' ${CI_PROJECT_DIR}/.conan2/profiles/default
+    - sed -i '' 's/gnu98/gnu14/g' "${CI_PROJECT_DIR}/.conan2/profiles/default"
     - conan create . -s build_type=Debug
     - conan create . -s build_type=Release
     - conan remote login  -p demo youle demo
