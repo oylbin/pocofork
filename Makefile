@@ -219,9 +219,3 @@ distclean:
 	find $(POCO_BUILD) -name .dep -type d -print0 | xargs -0 rm -rf
 	find $(POCO_BUILD) -name bin -type d -print0 | xargs -0 rm -rf
 
-conan:
-	conan create . -s build_type=Debug
-	conan create . -s build_type=Release
-	conan create . --profile ios -s build_type=Debug --build missing
-	conan create . --profile ios -s build_type=Release --build missing
-	conan list poco/1.13.3-c14p1:*
