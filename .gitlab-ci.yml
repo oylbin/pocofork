@@ -48,6 +48,7 @@ test-on-linux:
     - docker4raven
   script:
     - echo "Start Test On Linux"
+    - pwd
     - /root/bin/conan profile detect -e
     - /root/bin/conan remote add --insecure -f youle http://192.168.212.47:9300
   cache:
