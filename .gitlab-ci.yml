@@ -23,9 +23,10 @@ test-on-windows:
     - windows
   script:
     - echo "Start Test On Windows"
-    - curl -o conan-2.3.0-windows-x86_64.zip -sL https://nexus.youle.game/repository/raw/conan/conan-2.3.0-windows-x86_64.zip
     - pwd
     - unzip --version
+    - curl -o conan-2.3.0-windows-x86_64.zip -L https://github.com/conan-io/conan/releases/download/2.3.0/conan-2.3.0-windows-x86_64.zip
+
 
 # test-on-linux:
 #   stage: test
