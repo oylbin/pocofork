@@ -19,11 +19,14 @@ test-on-macos:
     - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-x86_64.tgz -O /tmp/conan-2.3.0-macos-x86_64.tgz
     - cd $HOME && tar zxf /tmp/conan-2.3.0-macos-x86_64.tgz
     - cd ${CI_PROJECT_DIR}
-    - $HOME/bin/conan profile detect -e
-    - $HOME/bin/conan remote add --insecure -f youle http://192.168.212.47:9300
-    - $HOME/bin/conan create . -s build_type=Debug
-    - $HOME/bin/conan create . -s build_type=Release
-    - $HOME/bin/conan upload poco/1.13.3-c14p2 -r=youle
+    - export PATH=$HOME/bin:$PATH
+    - conan profile detect -e
+    - conan remote add --insecure -f youle http://192.168.212.47:9300
+    - sed -i '' -e '/s/gnu98/gnu14/g' ${CI_PROJECT_DIR}/.conan2/profiles/default
+    - conan create . -s build_type=Debug
+    - conan create . -s build_type=Release
+    - conan remote login  -p demo youle demo
+    - conan upload poco/1.13.3-c14p2 -r=youle
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -42,6 +45,7 @@ test-on-windows:
     - ./conan.exe remote add --insecure -f youle http://192.168.212.47:9300
     - ./conan.exe create . -s build_type=Debug
     - ./conan.exe create . -s build_type=Release
+    - ./conan.exe remote login  -p demo youle demo
     - ./conan.exe upload poco/1.13.3-c14p2 -r=youle
   cache:
     key: ${CI_COMMIT_REF_SLUG}
@@ -56,11 +60,13 @@ test-on-linux:
   script:
     - echo "Start Test On Linux"
     - pwd
-    - /root/bin/conan profile detect -e
-    - /root/bin/conan remote add --insecure -f youle http://192.168.212.47:9300
-    - /root/bin/conan create . -s build_type=Debug
-    - /root/bin/conan create . -s build_type=Release
-    - /root/bin/conan upload poco/1.13.3-c14p2 -r=youle
+    - export PATH=/root/bin:$PATH
+    - conan profile detect -e
+    - conan remote add --insecure -f youle http://192.168.212.47:9300
+    - conan create . -s build_type=Debug
+    - conan create . -s build_type=Release
+    - conan remote login  -p demo youle demo
+    - conan upload poco/1.13.3-c14p2 -r=youle
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
