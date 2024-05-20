@@ -23,8 +23,7 @@ test-on-windows:
     - windows
   script:
     - echo "Start Test On Windows"
-    - curl --version
-    - powershell -Command 'Invoke-WebRequest -Uri "https://nexus.youle.game/repository/raw/conan/conan-2.3.0-windows-x86_64.zip" -OutFile conan-2.3.0-windows-x86_64.zip'
+    - curl -o conan-2.3.0-windows-x86_64.zip -sL https://nexus.youle.game/repository/raw/conan/conan-2.3.0-windows-x86_64.zip
     - powershell -Command 'Expand-Archive .\conan-2.3.0-windows-x86_64.zip -DestinationPath .'
     - powershell -Command '.\conan.exe --version'
 
