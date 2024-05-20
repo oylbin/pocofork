@@ -29,13 +29,13 @@ test-on-windows:
     - ./conan.exe --version
 
 
-# test-on-linux:
-#   stage: test
-#   image: registry-dev.youle.game/frontend/raven-test:20240410
-#   tags:
-#     - docker
-#   script:
-#     - echo "Start Test On Linux"
-#     - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-linux-x86_64.tgz -O /tmp/conan-2.3.0-linux-x86_64.tgz
-#     - cd $HOME && tar zxf /tmp/conan-2.3.0-linux-x86_64.tgz
-#     - $HOME/bin/conan --version
+test-on-linux:
+  stage: test
+  image: registry-dev.youle.game/frontend/raven-test:20240410
+  tags:
+    - docker
+  script:
+    - echo "Start Test On Linux"
+    - curl -o /tmp/conan-2.3.0-linux-x86_64.tgz https://nexus.youle.game/repository/raw/conan/conan-2.3.0-linux-x86_64.tgz
+    - cd $HOME && tar zxf /tmp/conan-2.3.0-linux-x86_64.tgz
+    - $HOME/bin/conan --version
