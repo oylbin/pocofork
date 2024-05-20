@@ -111,7 +111,7 @@ class PocoConan(ConanFile):
 
     # def export_sources(self):
     #    export_conandata_patches(self)
-    exports_sources = "CMakeLists.txt", "cmake/*", "libversion", "VERSION", "Foundation/*", "NET/*", "UTIL/*", "README", "LICENSE"
+    exports_sources = "CMakeLists.txt", "cmake/*", "libversion", "VERSION", "Foundation/*", "NET/*", "UTIL/*", "README.md", "LICENSE"
 
     def config_options(self):
         if self.settings.os == "Windows":
