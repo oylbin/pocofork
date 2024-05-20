@@ -25,7 +25,7 @@ test-on-windows:
     - echo "Start Test On Windows"
     - pwd
     - unzip --version
-    - curl -o conan-2.3.0-windows-x86_64.zip -L https://github.com/conan-io/conan/releases/download/2.3.0/conan-2.3.0-windows-x86_64.zip
+    - curl https://nexus.youle.game/repository/raw/zeus-test-report/version.txt
 
 
 # test-on-linux:
