@@ -45,7 +45,7 @@ test-on-linux:
   stage: test
   image: registry-dev.youle.game/misc/conanbuilder:latest
   tags:
-    - docker
+    - docker4raven
   script:
     - echo "Start Test On Linux"
     - /root/bin/conan profile detect -e
