@@ -8,7 +8,7 @@ stages:
   - test
 
 variables:
-  CONAN_USER_HOME: "${CI_PROJECT_DIR}/.conan2"
+  CONAN_HOME: "${CI_PROJECT_DIR}/.conan2"
 
 test-on-macos:
   stage: test
