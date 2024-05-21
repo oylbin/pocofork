@@ -49,11 +49,15 @@ conan_setup: $(CONAN)
 
 conan_config:
 	$(CONAN) profile detect -e
-	$(CONAN) remote add --insecure -f youle http://192.168.212.47:9300
-	$(CONAN) remote login  -p demo youle demo
 ifeq ($(OS),Darwin)
 	# 有一台macos的runner，默认的profile是gnu98，需要修改为gnu14
 	sed -i '' 's/gnu98/gnu14/g' `$(CONAN) profile path default`
+	DEFAULT_PROFILE_PATH=`$(CONAN) profile path default` && \
+		PROFILE_DIR=`dirname $${DEFAULT_PROFILE_PATH}` && \
+		echo cp conan_profiles/ios $${PROFILE_DIR}/
+endif
+ifeq ($(OS),Linux)
+	cp conan_profiles/android* $(HOME)/.conan2/profiles/
 endif
 	$(CONAN) profile show --profile $(TARGET_PROFILE)
 
@@ -61,5 +65,7 @@ conan_build:
 	$(CONAN) create . --profile $(TARGET_PROFILE) -s build_type=Release
 
 conan_upload:
+	$(CONAN) remote add --insecure -f youle http://192.168.212.47:8081/artifactory/api/conan/conan-local
+	$(CONAN) remote login  youle raven -p vMeqrUHcyyH4tL8L
 	$(CONAN) upload poco/`$(CONAN) inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
 	$(CONAN) list poco/*:*  -r=youle
