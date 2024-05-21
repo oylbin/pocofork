@@ -10,17 +10,17 @@ stages:
 variables:
   CONAN_HOME: "${CI_PROJECT_DIR}/.conan2"
 
-# build-on-macos-x86_64:
-#   stage: build
-#   tags:
-#     - macos-x86
-#   script:
-#     - echo "Start build On MacOS x86_64"
-#     - make -f Makefile.gitlabci all
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#       - .conan2/
+build-on-macos-x86_64:
+  stage: build
+  tags:
+    - macos-x86
+  script:
+    - echo "Start build On MacOS x86_64"
+    - make -f Makefile.gitlabci all
+  # cache:
+  #   key: ${CI_COMMIT_REF_SLUG}
+  #   paths:
+  #     - .conan2/
 
 build-on-macos-arm64:
   stage: build
@@ -30,10 +30,10 @@ build-on-macos-arm64:
     - echo "Start build On MacOS arm64"
     - make -f Makefile.gitlabci all
     - make -f Makefile.gitlabci all TARGET_PROFILE=ios
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - .conan2/
+  # cache:
+  #   key: ${CI_COMMIT_REF_SLUG}
+  #   paths:
+  #     - .conan2/
 
 build-on-windows:
   stage: build
@@ -63,41 +63,41 @@ build-on-windows:
     GIT_STRATEGY: clone
 
 
-# build-on-linux:
-#   stage: build
-#   image: registry-dev.youle.game/misc/conanbuilder:latest
-#   tags:
-#     - docker
-#   script:
-#     - echo "Start build On Linux"
-#     - make -f Makefile.gitlabci all
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#       - .conan2/
+build-on-linux:
+  stage: build
+  image: registry-dev.youle.game/misc/conanbuilder:latest
+  tags:
+    - docker
+  script:
+    - echo "Start build On Linux"
+    - make -f Makefile.gitlabci all
+  # cache:
+  #   key: ${CI_COMMIT_REF_SLUG}
+  #   paths:
+  #     - .conan2/
 
-# build-for-android:
-#   stage: build
-#   image: registry-dev.youle.game/misc/conanbuilder:latest
-#   tags:
-#     - docker
-#   script:
-#     - echo "Start build On Linux"
-#     - make -f Makefile.gitlabci all TARGET_PROFILE=android
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#       - .conan2/
+build-for-android:
+  stage: build
+  image: registry-dev.youle.game/misc/conanbuilder:latest
+  tags:
+    - docker
+  script:
+    - echo "Start build On Linux"
+    - make -f Makefile.gitlabci all TARGET_PROFILE=android
+  # cache:
+  #   key: ${CI_COMMIT_REF_SLUG}
+  #   paths:
+  #     - .conan2/
 
-# build-for-android-armv7:
-#   stage: build
-#   image: registry-dev.youle.game/misc/conanbuilder:latest
-#   tags:
-#     - docker
-#   script:
-#     - echo "Start build On Linux"
-#     - make -f Makefile.gitlabci all TARGET_PROFILE=android_armv7
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#       - .conan2/
+build-for-android-armv7:
+  stage: build
+  image: registry-dev.youle.game/misc/conanbuilder:latest
+  tags:
+    - docker
+  script:
+    - echo "Start build On Linux"
+    - make -f Makefile.gitlabci all TARGET_PROFILE=android_armv7
+  # cache:
+  #   key: ${CI_COMMIT_REF_SLUG}
+  #   paths:
+  #     - .conan2/
