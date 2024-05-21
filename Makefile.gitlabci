@@ -3,17 +3,17 @@
 # 在Linux上，执行`uname -s`会返回Linux
 # 在macOS上，执行`uname -s`会返回Darwin
 OS ?= $(shell uname -s)
-
+TARGET_PROFILE ?= default
 
 
 ifeq ($(OS),Windows_NT)
-# Windows gitlab runner 无法访问到 $HOME/bin
+# Windows gitlab runner 无法访问到 $HOME/bin，所以把 conan 安装到项目目录下
 CONAN := $(CI_PROJECT_DIR)/bin/conan
 else ifeq ($(OS),Linux)
 CONAN := $(HOME)/bin/conan
 else ifeq ($(OS),Darwin)
 ARCH := $(shell uname -m)
-# macos 某些 gitlab runner 无法访问到 $HOME/bin
+# macos 某些 gitlab runner 无法访问到 $HOME/bin，所以把 conan 安装到项目目录下
 CONAN := $(CI_PROJECT_DIR)/bin/conan
 endif
 
@@ -51,13 +51,13 @@ conan_config:
 	$(CONAN) remote add --insecure -f youle http://192.168.212.47:9300
 	$(CONAN) remote login  -p demo youle demo
 ifeq ($(OS),Darwin)
+	# 有一台macos的runner，默认的profile是gnu98，需要修改为gnu14
 	sed -i '' 's/gnu98/gnu14/g' `$(CONAN) profile path default`
 endif
-	$(CONAN) profile show --profile default
+	$(CONAN) profile show --profile $(TARGET_PROFILE)
 
 build:
-	echo $(CONAN) create . -s build_type=Release
-	echo $(CONAN) create . -s build_type=Debug
+	$(CONAN) create . --profile $(TARGET_PROFILE) -s build_type=Release
 
 upload:
-	echo $(CONAN) upload poco/1.13.3-c14p2 -r=youle
+	$(CONAN) upload poco/`conan inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
