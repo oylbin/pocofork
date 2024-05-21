@@ -44,6 +44,7 @@ build-on-windows:
     - file Foundation/CMakeLists.txt
     - file Foundation/include/Poco/ASCIIEncoding.h
     - cat .gitattributes
+    - git --version
     - git config --global --list
     - git config --system --list
     - git config --local --list
