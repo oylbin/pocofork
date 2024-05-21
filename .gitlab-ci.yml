@@ -29,6 +29,7 @@ test-on-macos-arm64:
   script:
     - echo "Start Test On MacOS arm64"
     - make -f Makefile.gitlabci all
+    - make -f Makefile.gitlabci all TARGET_PROFILE=ios
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:

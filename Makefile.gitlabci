@@ -5,6 +5,7 @@
 OS ?= $(shell uname -s)
 TARGET_PROFILE ?= default
 CONAN_HOME ?= $(HOME)/.conan2
+CI_PROJECT_DIR ?= $(shell pwd)
 
 
 ifeq ($(OS),Windows_NT)
