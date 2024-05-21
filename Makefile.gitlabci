@@ -30,7 +30,7 @@ $(CONAN):
 ifeq ($(OS),Windows_NT)
 	test -e $(CI_PROJECT_DIR)/bin/conan.exe || ( \
 		curl -o conan.zip https://git.youle.game/opensource/thirdparty/poco/uploads/f109f4e0b49606c811feee5932e597a4/conan-2.3.0-windows-x86_64.zip && \
-		unzip -d $(HOME)/bin conan.zip && \
+		unzip -d $(CI_PROJECT_DIR)/bin conan.zip && \
 		rm conan.zip )
 else ifeq ($(OS),Linux)
 	test -e $(CONAN) || ( \
@@ -62,3 +62,4 @@ conan_build:
 
 conan_upload:
 	$(CONAN) upload poco/`$(CONAN) inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
+	$(CONAN) list poco/*:*  -r=youle
