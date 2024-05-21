@@ -68,4 +68,4 @@ conan_upload:
 	$(CONAN) remote add --insecure -f youle http://192.168.212.47:8081/artifactory/api/conan/conan-local
 	$(CONAN) remote login  youle raven -p vMeqrUHcyyH4tL8L
 	$(CONAN) upload poco/`$(CONAN) inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
-	$(CONAN) list poco/*:*  -r=youle
+	$(CONAN) list poco/`$(CONAN) inspect conanfile.py | grep version | awk '{print $$NF}'`:*  -r=youle

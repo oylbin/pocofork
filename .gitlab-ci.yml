@@ -22,18 +22,18 @@ variables:
 #     paths:
 #       - .conan2/
 
-# build-on-macos-arm64:
-#   stage: build
-#   tags:
-#     - macos-arm64
-#   script:
-#     - echo "Start build On MacOS arm64"
-#     - make -f Makefile.gitlabci all
-#     - make -f Makefile.gitlabci all TARGET_PROFILE=ios
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#       - .conan2/
+build-on-macos-arm64:
+  stage: build
+  tags:
+    - macos-arm64
+  script:
+    - echo "Start build On MacOS arm64"
+    - make -f Makefile.gitlabci all
+    - make -f Makefile.gitlabci all TARGET_PROFILE=ios
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .conan2/
 
 build-on-windows:
   stage: build
@@ -41,16 +41,18 @@ build-on-windows:
     - windows
   script:
     - echo "Start build On Windows"
-    - file Foundation/CMakeLists.txt
-    - file Foundation/include/Poco/ASCIIEncoding.h
-    - cat .gitattributes
-    - git --version
-    - git config --global core.autocrlf input
     - git config --global --list
-    - git rm -rf --cached .
-    - git reset --hard HEAD
-    - file Foundation/CMakeLists.txt
     - file Foundation/include/Poco/ASCIIEncoding.h
+    - make -f Makefile.gitlabci all
+    # - file Foundation/CMakeLists.txt
+    # - cat .gitattributes
+    # - git --version
+    # - git config --global core.autocrlf input
+    # - git config --global --list
+    # - git rm -rf --cached .
+    # - git reset --hard HEAD
+    # - file Foundation/CMakeLists.txt
+    # - file Foundation/include/Poco/ASCIIEncoding.h
 
   # cache:
   #   key: ${CI_COMMIT_REF_SLUG}
