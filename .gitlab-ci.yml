@@ -41,6 +41,7 @@ test-on-windows:
     - windows
   script:
     - echo "Start Test On Windows"
+    - git add --renormalize .
     - make -f Makefile.gitlabci all
   cache:
     key: ${CI_COMMIT_REF_SLUG}
