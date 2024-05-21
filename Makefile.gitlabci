@@ -13,7 +13,7 @@ CONAN_TARGET := $(HOME_DIR)/bin/conan.exe
 else ifeq ($(OS),Linux)
 
 else ifeq ($(OS),Darwin)
-
+ARCH := $(shell uname -m)
 endif
 
 # conan_setup： 安装 conan
@@ -36,7 +36,7 @@ else ifeq ($(OS),Linux)
 		exit 1 )
 else ifeq ($(OS),Darwin)
 	test -e $(CONAN) || ( \
-		wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-$(uname -m).tgz -O /tmp/conan-2.3.0-macos.tgz && \
+		curl -o /tmp/conan-2.3.0-macos.tgz https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-$(ARCH).tgz && \
 		tar zxf /tmp/conan-2.3.0-macos.tgz -C $(HOME)/bin && \
 		rm /tmp/conan-2.3.0-macos.tgz )
 endif

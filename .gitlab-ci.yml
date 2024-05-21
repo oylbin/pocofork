@@ -16,7 +16,7 @@ test-on-macos-x86_64:
     - macos-x86
   script:
     - echo "Start Test On MacOS x86_64"
-    - make all
+    - make -f Makefile.gitlabci all
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
