@@ -45,10 +45,8 @@ build-on-windows:
     - file Foundation/include/Poco/ASCIIEncoding.h
     - cat .gitattributes
     - git --version
-    - git config --global core.autocrlf false
+    - git config --global core.autocrlf input
     - git config --global --list
-    - git config --system --list
-    - git config --local --list
     - git rm -rf --cached .
     - git reset --hard HEAD
     - file Foundation/CMakeLists.txt
