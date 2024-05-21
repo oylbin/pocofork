@@ -4,6 +4,7 @@
 # 在macOS上，执行`uname -s`会返回Darwin
 OS ?= $(shell uname -s)
 TARGET_PROFILE ?= default
+CONAN_HOME ?= $(HOME)/.conan2
 
 
 ifeq ($(OS),Windows_NT)
@@ -52,12 +53,10 @@ conan_config:
 ifeq ($(OS),Darwin)
 	# 有一台macos的runner，默认的profile是gnu98，需要修改为gnu14
 	sed -i '' 's/gnu98/gnu14/g' `$(CONAN) profile path default`
-	DEFAULT_PROFILE_PATH=`$(CONAN) profile path default` && \
-		PROFILE_DIR=`dirname $${DEFAULT_PROFILE_PATH}` && \
-		echo cp conan_profiles/ios $${PROFILE_DIR}/
+	cp conan_profiles/ios $(CONAN_HOME)/profiles/
 endif
 ifeq ($(OS),Linux)
-	cp conan_profiles/android* $(HOME)/.conan2/profiles/
+	cp conan_profiles/android* $(CONAN_HOME)/profiles/
 endif
 	$(CONAN) profile show --profile $(TARGET_PROFILE)
 

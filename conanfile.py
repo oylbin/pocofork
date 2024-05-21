@@ -238,6 +238,7 @@ class PocoConan(ConanFile):
         tc.variables["CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP"] = True
         if is_msvc(self):
             tc.variables["POCO_MT"] = is_msvc_static_runtime(self)
+            tc.variables["ENABLE_MSVC_MP"] = True
         if self.options.get_safe("enable_data_postgresql", False):
             tc.variables["PostgreSQL_ROOT_DIR"] = self.dependencies["libpq"].package_folder.replace(
                 "\\", "/")
