@@ -3,11 +3,30 @@
 ###############################
 
 # Set default behaviour to automatically normalize line endings.
-* text eof=lf
+* text=auto
+
+*.c text eof=lf
+*.cpp text eof=lf
+*.h text eof=lf
+*.cc text eof=lf
+*.cmake text eof=lf
+*.hpp text eof=lf
+*.in text eof=lf
+*.mc text eof=lf
+*.properties text eof=lf
+*.py text eof=lf
+*.txt text eof=lf
+*.filters text eof=lf
+README text eof=lf
+Makefile* text eof=lf
+libversion text eof=lf
+LICENSE text eof=lf
+VERSION text eof=lf
 
 # Force batch scripts to always use CRLF line endings so that if a repo is accessed
 # in Windows via a file share from Linux, the scripts will work.
-*.{vcxproj,sln} text eol=crlf
+*.sln  text eof=crlf
+*.vcxproj  text eof=crlf
 *.{cmd,[cC][mM][dD]} text eol=crlf
 *.{bat,[bB][aA][tT]} text eol=crlf
 
