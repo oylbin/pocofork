@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(PackageTest CXX)
 
-#find_package(poco)
 find_package(Poco REQUIRED Foundation Net Util CONFIG)
 
 set(CMAKE_CXX_STANDARD 14)
