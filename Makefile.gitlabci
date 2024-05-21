@@ -60,4 +60,4 @@ build:
 	$(CONAN) create . --profile $(TARGET_PROFILE) -s build_type=Release
 
 upload:
-	$(CONAN) upload poco/`conan inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
+	$(CONAN) upload poco/`$(CONAN) inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
