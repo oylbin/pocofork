@@ -5,15 +5,16 @@
 OS ?= $(shell uname -s)
 
 
-CONAN := $(HOME)/bin/conan
 
 ifeq ($(OS),Windows_NT)
-HOME_DIR := $(shell cd ~ && pwd)
-CONAN_TARGET := $(HOME_DIR)/bin/conan.exe
+# Windows gitlab runner 无法访问到 $HOME/bin
+CONAN := $(CI_PROJECT_DIR)/bin/conan
 else ifeq ($(OS),Linux)
-
+CONAN := $(HOME)/bin/conan
 else ifeq ($(OS),Darwin)
 ARCH := $(shell uname -m)
+# macos 某些 gitlab runner 无法访问到 $HOME/bin
+CONAN := $(CI_PROJECT_DIR)/bin/conan
 endif
 
 # conan_setup： 安装 conan
@@ -26,7 +27,7 @@ all: conan_setup conan_config build upload
 
 $(CONAN):
 ifeq ($(OS),Windows_NT)
-	test -e $(CONAN_TARGET) || ( \
+	test -e $(CI_PROJECT_DIR)/bin/conan.exe || ( \
 		curl -o conan.zip https://git.youle.game/opensource/thirdparty/poco/uploads/f109f4e0b49606c811feee5932e597a4/conan-2.3.0-windows-x86_64.zip && \
 		unzip -d $(HOME)/bin conan.zip && \
 		rm conan.zip )
@@ -35,9 +36,9 @@ else ifeq ($(OS),Linux)
 		echo "conan binary should be installed in the Docker image." && \
 		exit 1 )
 else ifeq ($(OS),Darwin)
-	test -e $(CONAN) || ( \
+	test -e $(CI_PROJECT_DIR)/bin/conan || ( \
 		curl -o /tmp/conan-2.3.0-macos.tgz https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-$(ARCH).tgz && \
-		tar zxf /tmp/conan-2.3.0-macos.tgz -C $(HOME)/bin && \
+		tar zxf /tmp/conan-2.3.0-macos.tgz -C $(CI_PROJECT_DIR) && \
 		rm /tmp/conan-2.3.0-macos.tgz )
 endif
 
