@@ -1,0 +1,62 @@
+# 这是一个获取操作系统名称的技巧
+# 在Windows上，默认带环境变量OS=Windows_NT，因此不会执行`uname -s`
+# 在Linux上，执行`uname -s`会返回Linux
+# 在macOS上，执行`uname -s`会返回Darwin
+OS ?= $(shell uname -s)
+
+
+CONAN := $(HOME)/bin/conan
+
+ifeq ($(OS),Windows_NT)
+HOME_DIR := $(shell cd ~ && pwd)
+CONAN_TARGET := $(HOME_DIR)/bin/conan.exe
+else ifeq ($(OS),Linux)
+
+else ifeq ($(OS),Darwin)
+
+endif
+
+# conan_setup： 安装 conan
+# conan_config: 配置 conan，profile & remote
+# build: 编译 conan crete & test with test_package
+# upload: 打包 conan upload
+
+all: conan_setup conan_config build upload
+
+
+$(CONAN):
+ifeq ($(OS),Windows_NT)
+	test -e $(CONAN_TARGET) || ( \
+		curl -o conan.zip https://git.youle.game/opensource/thirdparty/poco/uploads/f109f4e0b49606c811feee5932e597a4/conan-2.3.0-windows-x86_64.zip && \
+		unzip -d $(HOME)/bin conan.zip && \
+		rm conan.zip )
+else ifeq ($(OS),Linux)
+	test -e $(CONAN) || ( \
+		echo "conan binary should be installed in the Docker image." && \
+		exit 1 )
+else ifeq ($(OS),Darwin)
+	test -e $(CONAN) || ( \
+		wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-$(uname -m).tgz -O /tmp/conan-2.3.0-macos.tgz && \
+		tar zxf /tmp/conan-2.3.0-macos.tgz -C $(HOME)/bin && \
+		rm /tmp/conan-2.3.0-macos.tgz )
+endif
+
+conan_setup: $(CONAN)
+	@echo "Conan is installed at $<"
+
+
+conan_config:
+	$(CONAN) profile detect -e
+	$(CONAN) remote add --insecure -f youle http://192.168.212.47:9300
+	$(CONAN) remote login  -p demo youle demo
+ifeq ($(OS),Darwin)
+	sed -i '' 's/gnu98/gnu14/g' `$(CONAN) profile path default`
+endif
+	$(CONAN) profile show --profile default
+
+build:
+	echo $(CONAN) create . -s build_type=Release
+	echo $(CONAN) create . -s build_type=Debug
+
+upload:
+	echo $(CONAN) upload poco/1.13.3-c14p2 -r=youle

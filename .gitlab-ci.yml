@@ -10,23 +10,25 @@ stages:
 variables:
   CONAN_HOME: "${CI_PROJECT_DIR}/.conan2"
 
-test-on-macos:
+test-on-macos-x86_64:
   stage: test
   tags:
-    - macos
+    - macos-x86
   script:
-    - echo "Start Test On MacOS"
-    - wget https://nexus.youle.game/repository/raw/conan/conan-2.3.0-macos-x86_64.tgz -O /tmp/conan-2.3.0-macos-x86_64.tgz
-    - cd $HOME && tar zxf /tmp/conan-2.3.0-macos-x86_64.tgz
-    - cd ${CI_PROJECT_DIR}
-    - export PATH=$HOME/bin:$PATH
-    - conan profile detect -e
-    - conan remote add --insecure -f youle http://192.168.212.47:9300
-    - sed -i '' 's/gnu98/gnu14/g' "${CI_PROJECT_DIR}/.conan2/profiles/default"
-    - conan create . -s build_type=Debug
-    - conan create . -s build_type=Release
-    - conan remote login  -p demo youle demo
-    - conan upload poco/1.13.3-c14p2 -r=youle
+    - echo "Start Test On MacOS x86_64"
+    - make all
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .conan2/
+
+test-on-macos-arm64:
+  stage: test
+  tags:
+    - macos-arm64
+  script:
+    - echo "Start Test On MacOS arm64"
+    - make -f Makefile.gitlabci all
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -38,15 +40,7 @@ test-on-windows:
     - windows
   script:
     - echo "Start Test On Windows"
-    - pwd
-    - curl -o conan.zip https://git.youle.game/opensource/thirdparty/poco/uploads/f109f4e0b49606c811feee5932e597a4/conan-2.3.0-windows-x86_64.zip
-    - unzip conan.zip
-    - ./conan.exe profile detect -e
-    - ./conan.exe remote add --insecure -f youle http://192.168.212.47:9300
-    - ./conan.exe create . -s build_type=Debug
-    - ./conan.exe create . -s build_type=Release
-    - ./conan.exe remote login  -p demo youle demo
-    - ./conan.exe upload poco/1.13.3-c14p2 -r=youle
+    - make -f Makefile.gitlabci all
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -59,14 +53,7 @@ test-on-linux:
     - docker4raven
   script:
     - echo "Start Test On Linux"
-    - pwd
-    - export PATH=/root/bin:$PATH
-    - conan profile detect -e
-    - conan remote add --insecure -f youle http://192.168.212.47:9300
-    - conan create . -s build_type=Debug
-    - conan create . -s build_type=Release
-    - conan remote login  -p demo youle demo
-    - conan upload poco/1.13.3-c14p2 -r=youle
+    - make -f Makefile.gitlabci all
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
