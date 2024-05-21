@@ -19,10 +19,11 @@ endif
 
 # conan_setup： 安装 conan
 # conan_config: 配置 conan，profile & remote
-# build: 编译 conan crete & test with test_package
-# upload: 打包 conan upload
+# conan_build: 编译 conan crete & test with test_package
+# conan_upload: 打包 conan upload
+.PHONY: all conan_setup conan_config conan_build conan_upload
 
-all: conan_setup conan_config build upload
+all: conan_setup conan_config conan_build conan_upload
 
 
 $(CONAN):
@@ -56,8 +57,8 @@ ifeq ($(OS),Darwin)
 endif
 	$(CONAN) profile show --profile $(TARGET_PROFILE)
 
-build:
+conan_build:
 	$(CONAN) create . --profile $(TARGET_PROFILE) -s build_type=Release
 
-upload:
+conan_upload:
 	$(CONAN) upload poco/`$(CONAN) inspect conanfile.py | grep version | awk '{print $$NF}'` -r=youle
