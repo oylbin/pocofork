@@ -6,8 +6,6 @@ OS ?= $(shell uname -s)
 TARGET_PROFILE ?= default
 CONAN_HOME ?= $(HOME)/.conan2
 CI_PROJECT_DIR ?= $(shell pwd)
-CI_COMMIT_TAG ?= 0.0.1-latest
-POCO_VERSION := $(CI_COMMIT_TAG)
 
 
 ifeq ($(OS),Windows_NT)
@@ -28,6 +26,11 @@ endif
 .PHONY: all conan_setup conan_config conan_build conan_upload
 
 all: conan_setup conan_config conan_build conan_upload
+
+eofcheck:
+	file Foundation/include/Poco/ASCIIEncoding.h
+	(file Foundation/include/Poco/ASCIIEncoding.h | grep -v CRLF ) || \
+		(echo "please make sure git config 'core.autocrlf=input' on Windows" && exit 1)
 
 
 $(CONAN):

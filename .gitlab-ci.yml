@@ -16,6 +16,7 @@ build-on-macos-arm64:
     - macos-arm64
   script:
     - echo "Start build On MacOS arm64"
+    - make -f Makefile.gitlabci eofcheck
     - make -f Makefile.gitlabci all
     - make -f Makefile.gitlabci all TARGET_PROFILE=ios
   # cache:
