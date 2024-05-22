@@ -13,7 +13,7 @@ required_conan_version = ">=1.54.0"
 
 class PocoConan(ConanFile):
     name = "poco"
-    version = "1.13.3-c14p7"
+    version = os.getenv("POCO_VERSION", "0.0.1-latest")
     description = (
         "Modern, powerful open source C++ class libraries for building "
         "network- and internet-based applications that run on desktop, server, "

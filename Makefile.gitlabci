@@ -6,6 +6,8 @@ OS ?= $(shell uname -s)
 TARGET_PROFILE ?= default
 CONAN_HOME ?= $(HOME)/.conan2
 CI_PROJECT_DIR ?= $(shell pwd)
+CI_COMMIT_TAG ?= 0.0.1-latest
+POCO_VERSION := $(CI_COMMIT_TAG)
 
 
 ifeq ($(OS),Windows_NT)
